@@ -1,0 +1,30 @@
+Matthew Davenport
+1/31/2022
+
+Step 1.
+
+Explain what happens when you run the threadHello.c program?
+Do you get the same result if you run it multiple times? 
+What if you are also running some other demanding processes
+(e.g., compiling a big program, playing a Flash game on a website, or watching streaming video) when you run this program?
+
+When threadHello.c runs, 20 threads are created with go as their start routines, listing which thread they are,
+before hitting join and closing the thread. The same result is not repeated. Particularly when 
+other demanding processes are running on the computer.
+
+The function go() has the parameter arg passed a local variable. Are these variables per-thread or
+shared state? Where does the compiler store these variables’ states?
+
+The variables passed to go() are each a shared state, as they are a reference to the variable used in the for loop. 
+These variable states are stored in the shared memory of the process. 
+
+The main() has local variable i. Is this variable per-thread or shared state? Where does the compiler store this variable?
+
+
+Step 2. 
+
+Delete the second for loop in threadHello.c program so that the main routine simply creates NTHREADS 
+threads and then prints “Main thread done.” What are the possible outputs of the program now. Explain.
+
+Now the outputs are just listing the iterating number of the loop and the thread ID, but no longer outputting
+the thread returning, nor is pthread_join executing. 

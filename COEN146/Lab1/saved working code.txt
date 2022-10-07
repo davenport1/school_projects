@@ -1,0 +1,10 @@
+
+
+saved working 
+
+	// char buf[10];	 // allocate a buffer to store read data
+	// // reads content of file is loop iterations until end of file
+	// while(!feof(src)) {
+	// 	int size_read = fread(&buf, sizeof(char), 10, src);
+	// 	fwrite(&buf, sizeof(char), size_read, dst);
+	// }

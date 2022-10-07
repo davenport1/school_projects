@@ -1,0 +1,92 @@
+Matthew Davenport
+Lab5 Report file
+2/2/2022
+COEN 177 Lab @2:15pm Tues
+
+Part 1: 
+
+Explain what happens when you run the threadSync.c program? How does this program differ from 
+theadHello.c program.
+
+
+In threadSync.c, each thread locks the critical region with a semaphore before
+accessing data to ensure that other threads are blocked from accessing
+data at the same time. This is different from threadHello.c which has no 
+methods of locking the critical region. 
+
+
+
+
+
+
+
+
+
+
+pseudo code for producer/consumer problem using semaphores
+
+//Shared data: semaphore full, empty, mutex;
+//pool of n buffers, each can hold one item
+//mutex provides mutual exclusion to the buffer pool
+//empty and full count the number of empty and full buffers
+//Initially: full = 0, empty = n, mutex = 1
+//Producer thread
+do { 
+    ...
+    produce next item
+     ...
+    wait(empty);
+    wait(mutex);
+     ...
+    add the item to buffer
+     ...
+    signal(mutex);
+    signal(full);
+} while (1);
+//Consumer thread
+do { 
+    wait(full)
+    wait(mutex);
+     ...
+    remove next item from buffer
+     ...
+    signal(mutex);
+    signal(empty);
+     ...
+COEN 177 – Lab assignment 5    3/3
+    consume the item
+     ...
+} while (1);
+
+
+
+
+pseudocode for producer consumer problem using cond var
+//Producer thread
+do { 
+    ...
+    produce next item
+     ...
+    lock(mutex);
+    while (buffer is full)
+condV.wait(empty, mutex);
+     ...
+    add the item to buffer
+     ...
+    condV.signal(full);
+    unlock(mutex);
+} while (1);
+//Consumer thread
+do { 
+    lock(mutex)
+    while (buffer is empty)
+condV.wait(full, mutex)
+     ...
+    remove next item from buffer
+     ...
+    condV.signal(empty);
+    unlock(mutex);
+     ...
+    consume the item
+     ...
+} while (1);
